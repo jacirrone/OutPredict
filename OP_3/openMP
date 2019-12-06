@@ -1,0 +1,18 @@
+#To install the OpenMP library:
+
+#For Mac-OS:
+#brew install libomp
+
+#For Linux:
+#(Side note: it might be necessary to run "sudo apt-get update" and "sudo apt-get install gcc", especially if you are using a virgin AWS machine, for example.)
+#sudo apt-get install libomp-dev clang
+
+#Then you need to set the following environment variables:
+
+export CC=/usr/bin/clang
+export CXX=/usr/bin/clang++
+export CPPFLAGS="$CPPFLAGS -Xpreprocessor -fopenmp"
+export CFLAGS="$CFLAGS -I/usr/local/opt/libomp/include"
+export CXXFLAGS="$CXXFLAGS -I/usr/local/opt/libomp/include"
+export LDFLAGS="$LDFLAGS -L/usr/local/opt/libomp/lib -lomp"
+export DYLD_LIBRARY_PATH=/usr/local/opt/libomp/lib

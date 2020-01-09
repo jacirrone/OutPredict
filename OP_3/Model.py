@@ -615,14 +615,14 @@ class Model:
 
 		#The following line prints the matrix of edges score.
 		if not(auto_meth):
-			confidences.to_csv(output_path+"/Matrix_TF_gene.tsv", sep="\t")
+			confidences.to_csv(output_path+"/Matrix_TF_gene"+str(self.tau)+".tsv", sep="\t")
 			#Print ranked list of edges
 			import csv
 			List = [('TF', 'Target', 'Importance')]
 			for source in confidences.columns.values:
 				for target in confidences.index.values:
 					List.append((source, target, confidences[source][target]))
-			with open(output_path+"/Ranked_list_TF_gene.csv", "w") as f:
+			with open(output_path+"/Ranked_list_TF_gene"+str(self.tau)+".csv", "w") as f:
 				writer = csv.writer(f)
 				writer.writerows(List)
 

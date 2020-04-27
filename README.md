@@ -78,6 +78,8 @@ expression values; must include row (genes) and column (conditions) names
 
 Obtain expression data and save it as a tsv file "expression.tsv" of [Genes x Samples]
 
+(Note: No specific order needed for steady-state and time series data types within the expression matrix,
+and there is no need to add all combinations of the time series replicates)
 
 gold_standard.tsv (required when choosing the gold standard priors option on OutPredict, see below)
 -----------------
@@ -117,6 +119,8 @@ for transcription factors) since prevCol; NA if "e" or "f".
 
 condName: name of the condition.
 
+(Note: No specific order needed for steady-state and time series data types within the meta_data file,
+and there is no need to add all combinations of the time series replicates)
 
 tf_names.tsv
 ------------

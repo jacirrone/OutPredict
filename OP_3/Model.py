@@ -126,13 +126,17 @@ class Model:
 					actual_y = np.copy(np.asarray(y[i,:]))
 					pred_y = np.copy(np.asarray(y_pred[i,:]))
 
+
 					#Don't correlate conditions where a given gene has value 0s
 					where_zeros = np.where(np.asarray(actual_y)==0)[0]
 					if where_zeros.size > 0:
 						actual_y = np.asarray(np.delete(np.asarray(actual_y), where_zeros))
 						pred_y =  np.asarray(np.delete(np.asarray(pred_y), where_zeros))
 
-					tmp_mse = mean_squared_error(actual_y, pred_y)
+					if len(actual_y) !=0 and len(pred_y) != 0:
+						tmp_mse = mean_squared_error(actual_y, pred_y)
+					else:
+						tmp_mse = 0
 					mse += tmp_mse
 					mse_arr[i] = tmp_mse
 					if tmp_mse == 0:
@@ -194,9 +198,15 @@ class Model:
 					actual_y = np.asarray(np.delete(np.asarray(actual_y), where_zeros))
 					pred_y = np.asarray(np.delete(np.asarray(pred_y), where_zeros))
 
-				tmp_corr, tmp_pvalue = scipy.stats.pearsonr(actual_y, pred_y)
+				if len(actual_y) > 1 and len(pred_y) > 1:				
+					tmp_corr, tmp_pvalue = scipy.stats.pearsonr(actual_y, pred_y)
 
-				spear_corr, spear_pvalue = scipy.stats.spearmanr(actual_y, pred_y)
+					spear_corr, spear_pvalue = scipy.stats.spearmanr(actual_y, pred_y)
+				else:
+					tmp_corr = 0
+					tmp_pvalue = 0
+					spear_corr = 0
+					spear_pvalue = 0
 				#Debug
 				# print "Corr values: ", tmp_corr, tmp_pvalue
 				# print "Spearman Corr values: ", spear_corr, spear_pvalue
@@ -218,9 +228,13 @@ class Model:
 			spear_corr_avg, spear_pvalue = scipy.stats.pearsonr(y, y_pred)
 			spear_corr_arr = [spear_corr_avg, spear_pvalue]
 
-		if ngenes>1:
+		if ngenes>1 and n_actual_genes>1:
 			corr_avg = float(cum_corr) / float(n_actual_genes)
 			spear_corr_avg = float(spear_cum_corr) / float(n_actual_genes)
+		else:
+			corr_avg = 0
+			spear_corr_avg = 0
+
 
 		#Debug
 		if self.flag_print:

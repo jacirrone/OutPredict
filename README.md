@@ -1,4 +1,4 @@
-% Copyright (C) 2019 Jacopo Cirrone
+% Copyright (C) 2020 Jacopo Cirrone
 
 
 This repository contains OutPredict, a python developed Method for Predicting Out-of-sample Data in Time Series and Steady State data as well as to predict
